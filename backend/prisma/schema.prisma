@@ -1,0 +1,57 @@
+// -----------------------------------------------------
+//  PRISMA SCHEMA — SQL SERVER (MSSQL)
+// -----------------------------------------------------
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String        @id @unique
+  name            String
+  email           String        @unique
+  role            String        @default("user")
+  joinedAt        DateTime      @default(now())
+
+  communities     Community[]   @relation("UserCommunities")
+  transactions    Transaction[]
+
+  @@index([name])
+  @@index([role])
+}
+
+model Community {
+  id            String        @id @unique
+  name          String
+  creatorId     String
+  memberCount   Int           @default(0)
+  revenue       Float         @default(0)
+  status        String        // "public", "private"
+
+  creator       User          @relation("UserCommunities", fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  transactions  Transaction[]
+
+  @@index([status])
+  @@index([creatorId])
+}
+
+model Transaction {
+  id             String     @id @unique
+  amount         Float
+  date           DateTime   @default(now())
+  platformFee    Float
+
+  communityId    String
+  userId         String
+
+  community      Community  @relation(fields: [communityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user           User       @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([date])
+  @@index([communityId])
+  @@index([userId])
+}

@@ -1,0 +1,28 @@
+
+### Get admin stats
+GET http://localhost:3000/api/stats
+Content-Type: application/json
+
+### Get all communities
+GET http://localhost:3000/api/communities 
+Content-Type: application/json
+
+### Get all platform transactions
+GET http://localhost:3000/api/transactions
+Content-Type: application/json
+
+### Get all users
+GET http://localhost:3000/api/users
+Content-Type: application/json
+
+### Delete single user
+DELETE http://localhost:3000/api/remove-user/u1
+Content-Type: application/json
+
+### change community status
+PUT http://localhost:3000/api/change-community-status/c3
+Content-Type: application/json
+
+{
+  "status": "private"
+}
