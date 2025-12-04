@@ -19,3 +19,6 @@ backendRouter.delete("/remove-community/:communityId", (req, res) =>
 backendRouter.delete("/remove-transaction/:transactionId", (req, res) =>
   backendController.deleteTransaction(req, res)
 );
+backendRouter.put("/create-user", (req, res) =>
+  backendController.createUser(req, res)
+);

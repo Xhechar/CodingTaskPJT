@@ -16,7 +16,7 @@ GET http://localhost:3000/api/users
 Content-Type: application/json
 
 ### Delete single user
-DELETE http://localhost:3000/api/remove-user/u1
+DELETE http://localhost:3000/api/remove-user/u10
 Content-Type: application/json
 
 ### change community status
@@ -26,3 +26,25 @@ Content-Type: application/json
 {
   "status": "private"
 }
+
+### Other APIs for examples
+
+### Create new user
+PUT http://localhost:3000/api/create-user
+Content-Type: application/json
+
+{
+  "id": "u10",
+  "name": "New User",
+  "email": "email@example.com",
+  "role": "member",
+  "joinedAt": "2024-06-15T10:00:00Z"
+}
+
+### Delete community
+DELETE http://localhost:3000/api/remove-community/
+Content-Type: application/json
+
+### Delete transaction
+DELETE http://localhost:3000/api/remove-transaction/
+Content-Type: application/json

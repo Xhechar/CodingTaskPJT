@@ -1,6 +1,7 @@
 import { IBackendServiceAbstractMethods } from "../interfaces/abstraction/backend.abstract.methods";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import { CommunityStatus } from "../interfaces/enums/backend.enums";
+import { CreateUserDTO } from "../interfaces/dtos/backend.dtos";
 
 const prisma = new PrismaClient({
   log: ["error"]
@@ -97,7 +98,12 @@ export class BackendService implements IBackendServiceAbstractMethods {
 
     return {
       "success": true,
-      "users": users
+      "users": users.map(user => {
+        return {
+          ...user,
+          communitiesCount: user.communities.length
+        };
+      })
     };
   }
   async deleteUserById(userId: string): Promise<any> {
@@ -238,6 +244,41 @@ export class BackendService implements IBackendServiceAbstractMethods {
     return {
       "success": true,
       "message": "Transaction deleted successfully"
+    };
+  }
+
+  async createUser(data: CreateUserDTO) {
+
+    let userExists = await prisma.user.findUnique({
+      where: {
+        email: data.email
+      }
+    });
+
+    if (userExists) {
+      return {
+        "success": false,
+        "errorMessage": "User with this email already exists"
+      };
+    }
+
+    let newUser = await prisma.user.create({
+      data: {
+        ...data,
+        joinedAt: new Date()
+      }
+    });
+
+    if (!newUser) {
+      return {
+        "success": false,
+        "errorMessage": "Failed to create user"
+      };
+    }
+
+    return {
+      "success": true,
+      "user": newUser
     };
   }
 

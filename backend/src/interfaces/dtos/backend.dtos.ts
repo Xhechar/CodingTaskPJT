@@ -6,3 +6,10 @@ export interface AdminStatsResponse {
   activeCommunities: number;
 }
 
+export interface CreateUserDTO {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  joinedAt: Date;
+}

@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { BackendService } from "../services/backend.services";
+import { User } from "@prisma/client";
+import { CreateUserDTO } from "../interfaces/dtos/backend.dtos";
 
 let backendService: BackendService = new BackendService();
 
@@ -11,8 +13,8 @@ export class BackendController {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
-        success: false,
-        errorMessage: "Internal server error",
+        "success": false,
+        "errorMessage": "Internal server error",
       });
     }
   }
@@ -23,8 +25,8 @@ export class BackendController {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
-        success: false,
-        errorMessage: "Internal server error",
+        "success": false,
+        "errorMessage": "Internal server error",
       });
     }
   }
@@ -35,8 +37,8 @@ export class BackendController {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
-        success: false,
-        errorMessage: "Internal server error",
+        "success": false,
+        "errorMessage": "Internal server error",
       });
     }
   }
@@ -47,8 +49,8 @@ export class BackendController {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
-        success: false,
-        errorMessage: "Internal server error",
+        "success": false,
+        "errorMessage": "Internal server error",
       });
     }
   }
@@ -59,8 +61,8 @@ export class BackendController {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
-        success: false,
-        errorMessage: "Internal server error",
+        "success": false,
+        "errorMessage": "Internal server error",
       });
     }
   }
@@ -74,8 +76,8 @@ export class BackendController {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
-        success: false,
-        errorMessage: "Internal server error",
+        "success": false,
+        "errorMessage": "Internal server error",
       });
     }
   }
@@ -89,8 +91,8 @@ export class BackendController {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
-        success: false,
-        errorMessage: "Internal server error",
+        "success": false,
+        "errorMessage": "Internal server error",
       });
     }
   }
@@ -104,8 +106,24 @@ export class BackendController {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({
-        success: false,
-        errorMessage: "Internal server error",
+        "success": false,
+        "errorMessage": "Internal server error",
+      });
+    }
+  }
+
+  async createUser(req: Request, res: Response) {
+
+    try {
+
+      let result = await backendService.createUser(req.body as CreateUserDTO);
+
+      return res.status(200).json(result);
+      
+    } catch (error: any) {
+      return res.status(500).json({
+        "success": false,
+        "errorMessage": error instanceof Error ? error.message : "Internal server error",
       });
     }
   }
