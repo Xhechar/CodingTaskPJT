@@ -127,4 +127,21 @@ export class BackendController {
       });
     }
   }
+
+  async softDeleteUser(req: Request, res: Response) {
+
+    try {
+      let result = await backendService.softDeleteUser(
+        req.params.userId
+      );
+
+      return res.status(200).json(result);
+
+    } catch (error) {
+      return res.status(500).json({
+        "success": false,
+        "errorMessage": "Internal server error",
+      });
+    }
+  }
 }

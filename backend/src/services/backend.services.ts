@@ -86,6 +86,9 @@ export class BackendService implements IBackendServiceAbstractMethods {
       include: {
         communities: true,
         transactions: true
+      },
+      where: {
+        isDeleted: false
       }
     });
 
@@ -279,6 +282,43 @@ export class BackendService implements IBackendServiceAbstractMethods {
     return {
       "success": true,
       "user": newUser
+    };
+  }
+
+  async softDeleteUser(userId: string) {
+
+    let userExists = await prisma.user.findUnique({
+      where: {
+        id: userId
+      }
+    });
+
+    if (!userExists) {
+      return {
+        "success": false,
+        "errorMessage": "User not found"
+      };
+    }
+
+    let softDeleteUser = await prisma.user.update({
+      where: {
+        id: userId
+      },
+      data: {
+        isDeleted: true
+      }
+    });
+
+    if (!softDeleteUser) {
+      return {
+        "success": false,
+        "errorMessage": "Failed to soft delete user"
+      };
+    }
+
+    return {
+      "success": true,
+      "message": "User soft deleted successfully."
     };
   }
 

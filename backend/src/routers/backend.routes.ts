@@ -13,6 +13,8 @@ backendRouter.put("/change-community-status/:communityId", (req, res) =>
   backendController.changeCommunityStatus(req, res)
 );
 
+
+
 backendRouter.delete("/remove-community/:communityId", (req, res) =>
   backendController.deleteCommunity(req, res)
 );
@@ -22,3 +24,6 @@ backendRouter.delete("/remove-transaction/:transactionId", (req, res) =>
 backendRouter.put("/create-user", (req, res) =>
   backendController.createUser(req, res)
 );
+backendRouter.patch("/soft-delete-user/:userId", (req, res) =>
+  backendController.softDeleteUser(req, res)
+);  

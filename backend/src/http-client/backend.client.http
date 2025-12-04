@@ -41,6 +41,10 @@ Content-Type: application/json
   "joinedAt": "2024-06-15T10:00:00Z"
 }
 
+### Soft delete user
+PATCH http://localhost:3000/api/soft-delete-user/
+Content-Type: application/json
+
 ### Delete community
 DELETE http://localhost:3000/api/remove-community/
 Content-Type: application/json

@@ -16,6 +16,7 @@ model User {
   email           String        @unique
   role            String        @default("user")
   joinedAt        DateTime      @default(now())
+  isDeleted      Boolean       @default(false)
 
   communities     Community[]   @relation("UserCommunities")
   transactions    Transaction[]
